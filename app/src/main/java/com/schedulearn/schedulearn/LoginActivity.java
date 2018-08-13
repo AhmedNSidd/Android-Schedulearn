@@ -17,6 +17,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,17 +83,26 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        SharedPreferences sharedPreferences = LoginActivity.this.getSharedPreferences("com.schedulearn.schedulearn.USER_INFO", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("userToken", response);
-                        editor.putBoolean("isLoggedIn", true);
-                        editor.commit();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            Log.d("LoginActivity.java", response);
+                            String token = jsonResponse.getString("key");
+                            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.user_preferences_file_name), Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(getString(R.string.user_preferences_token_key), token);
+                            editor.putBoolean(getString(R.string.user_preferences_auth_status_key), true);
+                            editor.commit();
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                        } catch (JSONException e) {
+                            responseTv.setText("Something went wrong, try again.");
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.d("LoginActivity.java", "here");
                         responseTv.setText("Unable to login with the provided credentials");
                     }
                 }
@@ -103,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                 return params;
             }
         };
-
+        Log.d("LoginActivity.java", stringRequest.toString());
         queue.add(stringRequest);
     }
 }

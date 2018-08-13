@@ -18,8 +18,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        SharedPreferences sharedPreferences = HomeActivity.this.getSharedPreferences("com.schedulearn.schedulearn.USER_INFO", Context.MODE_PRIVATE);
-        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+        SharedPreferences sharedPreferences = HomeActivity.this.getSharedPreferences(getString(R.string.user_preferences_file_name), Context.MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean(getString(R.string.user_preferences_auth_status_key), false);
         if (isLoggedIn) {
             startActivity(new Intent(HomeActivity.this, MainActivity.class));
             finish();

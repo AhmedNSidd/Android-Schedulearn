@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Schedulearn</string>
+    <string name="user_preferences_file_name">com.schedulearn.schedulearn.USER_INFO</string>
+    <string name="user_preferences_auth_status_key">isLoggedIn</string>
+    <string name="user_preferences_token_key">userToken</string>
+    <string name="user_preferences_token_default_val">null</string>
 </resources>
