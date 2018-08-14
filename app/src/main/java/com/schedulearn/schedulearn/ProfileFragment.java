@@ -21,52 +21,33 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProfileFragment extends Fragment {
 
     private Button mSignOut;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getString(R.string.user_preferences_file_name), Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString(getString(R.string.user_preferences_token_key), getString(R.string.user_preferences_token_default_val));
-        String url = "https://www.schedulearn.com/api/v1/profile/" + token + "?format=json";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("MainActivity.java", response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        try {
-                            String responseBody = new String(error.networkResponse.data, "utf-8");
-                            JSONObject data = new JSONObject(responseBody);
-                            String message = data.getString("detail");
-                            Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                        } catch (UnsupportedEncodingException errorr) {
-                        }
-                    }
-                }
-        );
-        queue.add(stringRequest);
-    }
+    private CircleImageView mUserPicture;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getString(R.string.user_preferences_file_name), Context.MODE_PRIVATE);
         View v = inflater.inflate(R.layout.fragment_profile, container,false);
+
+        mUserPicture = v.findViewById(R.id.user_picture);
+        Glide.with(getContext())
+                .asBitmap()
+                .load(MainActivity.userPictureUrl)
+                .into(mUserPicture);
+
+
         mSignOut = v.findViewById(R.id.sign_out_button);
         mSignOut.setOnClickListener(new View.OnClickListener() {
             @Override

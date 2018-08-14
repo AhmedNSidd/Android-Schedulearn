@@ -33,11 +33,11 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
-    private String mToken;
+    private final String TAG = "MainActivity";
+    protected static String mToken;
     protected static ArrayList<String> mConnectionsPfps = new ArrayList<>();
     protected static ArrayList<String> mConnectionsNames = new ArrayList<>();
-    private boolean mConnectionsSuccessful = false;
+    protected static String userPictureUrl;
     // Create a listener for clicking a nav item for BottomNavigation.
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -63,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
         // are 0, that means the screen was rotated, etc, but the connections exist.
         if (mConnectionsNames.size() == 0) {
             getConnections();
+        }
+
+        if (userPictureUrl == null) {
+            getUserPfp();
         }
     }
 
@@ -129,6 +133,31 @@ public class MainActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(), "Something went wrong, try again.", Toast.LENGTH_LONG).show();
 
+                    }
+                }
+        );
+        queue.add(stringRequest);
+    }
+
+    private void getUserPfp() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://www.schedulearn.com/api/v1/profile/" + mToken + "?format=json";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject data = new JSONObject(response);
+                            userPictureUrl = "https://www.schedulearn.com" + data.getString("profile_pic");
+                        } catch (JSONException e) {
+                            Toast.makeText(getApplicationContext(), "Something went wrong, try again.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Something went wrong, try again.", Toast.LENGTH_LONG).show();
                     }
                 }
         );
