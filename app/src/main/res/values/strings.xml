@@ -1,5 +1,13 @@
 <resources>
-    <string name="app_name">Schedulearn</string>
+    <string name="app_name">Schedulearn</string> <!-- String used for homepage title -->
+    <!-- Strings for homepage -->
+    <string name="subtitle">revolutionize your learning experience</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="or">OR</string>
+    <string name="continue_with_google">Continue with Google</string>
+
+    <!-- END Strings for homepage -->
     <string name="user_preferences_file_name">com.schedulearn.schedulearn.USER_INFO</string>
     <string name="user_preferences_auth_status_key">isLoggedIn</string>
     <string name="user_preferences_token_key">userToken</string>

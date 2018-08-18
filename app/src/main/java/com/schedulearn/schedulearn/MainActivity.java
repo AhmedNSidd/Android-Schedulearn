@@ -51,12 +51,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState != null) {
-            mToken = savedInstanceState.getString("token", getString(R.string.user_preferences_token_default_val));
-        }
         // If we haven't got the token, then get it, else, the token exists.
-        if (mToken == null || mToken == getString(R.string.user_preferences_token_default_val)) {
+        if (mToken == null) {
             SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.user_preferences_file_name), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
             mToken = sharedPreferences.getString(getString(R.string.user_preferences_token_key), getString(R.string.user_preferences_token_default_val));
         }
         // If the size is 0, that means the connections haven't been gotten before, however, if they
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         if (mConnectionsNames.size() == 0) {
             getConnections();
         }
-
+        // Get User picture if we haven't got it yet.
         if (userPictureUrl == null) {
             getUserPfp();
         }
@@ -76,13 +74,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         addFragmentFromId(bottomNavigationView.getSelectedItemId());
-    }
-
-    // Store the token if activity is reset.
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("token", mToken);
     }
 
     private void addFragmentFromId(int id) {

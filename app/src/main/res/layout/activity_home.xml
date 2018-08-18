@@ -5,21 +5,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/sign_in"
+    <ImageView
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:tint="#6F000000"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/main_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/sign_up"
-        android:text="Sign In"
-        android:padding="16dp"/>
+        android:text="@string/app_name"
+        android:textAllCaps="true"
+        android:textSize="40sp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_title"
+        android:layout_centerHorizontal="true"
+        android:textSize="17sp"
+        android:text="@string/subtitle"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@android:color/white"/>
 
     <Button
         android:id="@+id/sign_up"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sign_in"
+        android:layout_marginBottom="15dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/home_buttons"
+        android:text="@string/sign_up"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/sign_in"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/or_divider"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/home_buttons"
+        android:text="@string/sign_in"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/or_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/or"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/continue_with_google"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="@android:color/white"/>
+
+    <Button
+        android:id="@+id/continue_with_google"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:text="Sign Up"
-        android:padding="16dp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="90dp"
+        android:background="@drawable/home_buttons"
+        android:text="@string/continue_with_google"
+        android:textColor="@color/white" />
+
 
 </RelativeLayout>
