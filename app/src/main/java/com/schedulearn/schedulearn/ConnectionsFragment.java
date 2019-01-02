@@ -1,14 +1,12 @@
 package com.schedulearn.schedulearn;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,22 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ConnectionsFragment extends Fragment {
 
@@ -50,23 +36,22 @@ public class ConnectionsFragment extends Fragment {
 
     public class ConnectionsAdapter extends RecyclerView.Adapter<ConnectionsAdapter.ConnectionsViewHolder> {
 
-        private ArrayList<String> mConnectionsPfps = new ArrayList<>();
-        private ArrayList<String> mConnectionsNames = new ArrayList<>();
+        private ArrayList<String> mConnectionsPfps;
+        private ArrayList<String> mConnectionsNames;
         private Context mContext;
 
 
         public class ConnectionsViewHolder extends RecyclerView.ViewHolder {
 
-            private CircleImageView connectionsPfp;
+            private CircularImageView connectionsPfp;
             private TextView connectionsName;
             private RelativeLayout listItemLayout;
 
             public ConnectionsViewHolder(@NonNull View itemView) {
                 super(itemView);
-
                 connectionsPfp = itemView.findViewById(R.id.connection_pfp);
                 connectionsName = itemView.findViewById(R.id.connection_name);
-                listItemLayout = itemView.findViewById(R.id.list_item);
+                listItemLayout = itemView.findViewById(R.id.connection_list_item);
             }
         }
 
@@ -102,7 +87,6 @@ public class ConnectionsFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            Toast.makeText(getContext(), mConnectionsNames.size() + "", Toast.LENGTH_LONG);
             return mConnectionsNames.size();
         }
 

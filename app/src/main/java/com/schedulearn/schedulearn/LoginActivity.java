@@ -70,7 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             String token = jsonResponse.getString("key");
-                            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.user_preferences_file_name), Context.MODE_PRIVATE);SharedPreferences.Editor editor = sharedPreferences.edit();
+                            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.user_preferences_file_name), Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString(getString(R.string.user_preferences_token_key), token);
                             editor.putBoolean(getString(R.string.user_preferences_auth_status_key), true);
                             editor.commit();

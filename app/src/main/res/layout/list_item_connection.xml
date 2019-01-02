@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/list_item"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/connection_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="15dp">
     
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/connection_pfp"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/ic_launcher_background" />
+        android:src="@drawable/ic_launcher_background"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_width="2dp"/>
 
     <TextView
         android:id="@+id/connection_name"
@@ -20,8 +23,7 @@
         android:layout_marginLeft="15dp"
         android:textSize="25sp"
         android:text="John Stones"
-        android:textColor="@color/colorAccent"
-        />
+        android:textColor="@color/colorAccent" />
 
 
 </RelativeLayout>

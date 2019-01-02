@@ -11,14 +11,15 @@ import android.widget.Button;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private Button signIn;
-    private Button signUp;
+    private Button signInBtn;
+    private Button signUpBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        // We get shared preferences of the user. If he was already logged in but closed the app
+        // then we just log him back in.
         SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.user_preferences_file_name), Context.MODE_PRIVATE);
         boolean isLoggedIn = sharedPreferences.getBoolean(getString(R.string.user_preferences_auth_status_key), false);
         if (isLoggedIn) {
@@ -28,10 +29,10 @@ public class HomeActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        signIn = (Button) findViewById(R.id.sign_in);
-        signUp = (Button) findViewById(R.id.sign_in);
+        signInBtn = (Button) findViewById(R.id.sign_in);
+        signUpBtn = (Button) findViewById(R.id.sign_in);
 
-        signIn.setOnClickListener(new View.OnClickListener() {
+        signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
